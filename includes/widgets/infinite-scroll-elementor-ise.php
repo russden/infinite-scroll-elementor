@@ -759,7 +759,6 @@ class ISE_InfiniteScroll extends Widget_Base
 					status: '.page-load-status',
 				});
               });
-          });
         </script>
 			<?php
             }
