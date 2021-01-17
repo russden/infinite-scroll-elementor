@@ -86,6 +86,7 @@ class ISE_InfiniteScroll extends Widget_Base
                 'elementor-pro-archive-posts'    => __('Elementor Archive Posts', 'infinite-scroll-elementor-td'),
                 'elementor-pro-products'         => __('Elementor Products', 'infinite-scroll-elementor-td'),
                 'ise-custom-selectors'           => __('Add Custom Selectors', 'infinite-scroll-elementor-td'),
+		'ue-woo-products'           	 => __('UE Woo Products', 'infinite-scroll-elementor-td'),
             ],
             'condition' => [
                 'ISE_register' => 'yes',
@@ -759,6 +760,159 @@ class ISE_InfiniteScroll extends Widget_Base
 					status: '.page-load-status',
 				});
               });
+          });
+        </script>
+			<?php
+            }
+        }
+	    
+	// UE - Woo Products
+        elseif ($settings['pagination_for_setting'] == 'ue-woo-products') {
+            if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
+                echo "<strong>Infinite Scroll Elementor for Elementor Posts: </strong>Executed fine, please check preview or page for results.";
+            } else {
+                if ($settings['infinite_scroll_elementor_loading_type'] == 'animation') {
+                    ?>
+				<style>
+				.page-load-status {
+				 display:none; /* hidden by default */
+				}
+
+				.loader-ellips {
+				  font-size: 12px; /* change size here */
+				  position: relative;
+				  width: 4em;
+				  height: 1em;
+				  margin: 10px auto;
+				}
+
+				.loader-ellips__dot {
+				  display: block;
+				  width: 1em;
+				  height: 1em;
+				  border-radius: 0.5em;
+				  position: absolute;
+				  animation-duration: 0.5s;
+				  animation-timing-function: ease;
+				  animation-iteration-count: infinite;
+				}
+
+				.loader-ellips__dot:nth-child(1),
+				.loader-ellips__dot:nth-child(2) {
+				  left: 0;
+				}
+				.loader-ellips__dot:nth-child(3) { left: 1.5em; }
+				.loader-ellips__dot:nth-child(4) { left: 3em; }
+
+				@keyframes reveal {
+				  from { transform: scale(0.001); }
+				  to { transform: scale(1); }
+				}
+
+				@keyframes slide {
+				  to { transform: translateX(1.5em) }
+				}
+
+				.loader-ellips__dot:nth-child(1) {
+				  animation-name: reveal;
+				}
+
+				.loader-ellips__dot:nth-child(2),
+				.loader-ellips__dot:nth-child(3) {
+				  animation-name: slide;
+				}
+
+				.loader-ellips__dot:nth-child(4) {
+				  animation-name: reveal;
+				  animation-direction: reverse;
+				}
+                             
+			</style>
+				
+			<div class="page-load-status">
+			  <div class="loader-ellips infinite-scroll-request">
+				<span class="loader-ellips__dot"></span>
+				<span class="loader-ellips__dot"></span>
+				<span class="loader-ellips__dot"></span>
+				<span class="loader-ellips__dot"></span>
+			  </div>
+			  <p class="infinite-scroll-last"><?php echo $lastText ?></p>
+			  <p class="infinite-scroll-error"><?php echo $errorText ?></p>
+			</div>
+			
+			<?php
+                } else { ?>     
+                <style>
+				.page-load-status {
+				 display:none; /* hidden by default */
+				}
+
+				.loader-ellips {
+				  font-size: 12px; /* change size here */
+				  position: relative;
+				  width: 4em;
+				  height: 1em;
+				  margin: 10px auto;
+				}
+
+				.loader-ellips__dot {
+				  display: block;
+				  width: 1em;
+				  height: 1em;
+				  border-radius: 0.5em;
+				  position: absolute;
+				  animation-duration: 0.5s;
+				  animation-timing-function: ease;
+				  animation-iteration-count: infinite;
+				}
+
+				.loader-ellips__dot:nth-child(1),
+				.loader-ellips__dot:nth-child(2) {
+				  left: 0;
+				}
+				.loader-ellips__dot:nth-child(3) { left: 1.5em; }
+				.loader-ellips__dot:nth-child(4) { left: 3em; }
+
+				@keyframes reveal {
+				  from { transform: scale(0.001); }
+				  to { transform: scale(1); }
+				}
+
+				@keyframes slide {
+				  to { transform: translateX(1.5em) }
+				}
+
+				.loader-ellips__dot:nth-child(1) {
+				  animation-name: reveal;
+				}
+
+				.loader-ellips__dot:nth-child(2),
+				.loader-ellips__dot:nth-child(3) {
+				  animation-name: slide;
+				}
+
+				.loader-ellips__dot:nth-child(4) {
+				  animation-name: reveal;
+				  animation-direction: reverse;
+				}
+                             
+			</style>           
+                <div class="page-load-status">
+                    <p class="loadingText infinite-scroll-request"><?php echo $loadingText ?></p>
+			        <p class="infinite-scroll-last"><?php echo $lastText ?></p>
+			        <p class="infinite-scroll-error"><?php echo $errorText ?></p>
+			    </div>
+            <?php } ?>
+			
+		<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$('ul.products').infiniteScroll({
+					append: 'li.product',
+					path: 'a.next.page-numbers',
+					hideNav: 'nav.uael-woocommerce-pagination',
+					history: false ,
+					status: '.page-load-status',
+				});
           });
         </script>
 			<?php
